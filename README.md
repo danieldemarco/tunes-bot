@@ -13,7 +13,8 @@ BOT_PERMISSION_SCOPES=<Bot Scope Bitmask>
 ## Add Bot To Channel
 https://discordapp.com/api/oauth2/authorize?scope=bot&client_id=<client_id>
 
-Authors:
-@danieldemarco
-@CurtisScheffel
+## Authors
+
+- [@danieldemarco](https://github.com/danieldemarco)
+- [@CurtisScheffel](https://github.com/CurtisScheffel)
 
