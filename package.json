@@ -20,7 +20,10 @@
   "homepage": "https://github.com/danieldemarco/tunes-bot#readme",
   "dependencies": {
     "discord.js": "14.7.1",
-    "dotenv": "16.0.3"
+    "dotenv": "16.0.3",
+    "sequelize": "6.26.0",
+    "sqlite3": "5.1.2",
+    "uuid": "9.0.0"
   },
   "devDependencies": {
     "eslint": "8.29.0"
