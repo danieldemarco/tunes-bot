@@ -17,7 +17,7 @@ const ENV = {
   clientSecret: process.env.CLIENT_SECRET,
   botToken: process.env.BOT_TOKEN,
   botScopes: process.env.BOT_PERMISSION_SCOPES,
-  guildID: process.env.GUID_ID,
+  guildID: process.env.GUILD_ID,
 };
 
 // setup
