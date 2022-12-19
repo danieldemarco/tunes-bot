@@ -44,20 +44,6 @@ const data = command
 const execute = async (interaction) => {
   // TODO: Handle voting open
   if (interaction.options.getSubcommand() === COMMANDS.OPEN) {
-    // const collector = interaction.channel.createMessageComponentCollector({
-    //   time: 4000,
-    // });
-
-    // collector.on("collect", (interaction) => {
-    //   if (!interaction.isButton()) return;
-
-    //   console.log(`Got Message from collector ${interaction.customId}`);
-    // });
-
-    // collector.on("end", (interaction) => {
-    //   interaction.forEach((i) => console.log(i));
-    // });
-
     await interaction.channel.send({
       content: "Pick Your Winner",
       components: [
