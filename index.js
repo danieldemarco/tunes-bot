@@ -1,4 +1,7 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-shadow */
 /* eslint-disable import/no-dynamic-require */
+
 // env config
 require("dotenv").config({ path: "./.env" });
 const path = require("node:path");
@@ -10,6 +13,8 @@ const {
   GatewayIntentBits,
   REST,
   Routes,
+  Collector,
+  MessageCollector,
 } = require("discord.js");
 
 // environmental configuation
@@ -57,6 +62,16 @@ client.on(Events.InteractionCreate, async (interaction) => {
       ephemeral: true,
     });
   }
+});
+
+client.on(Events.InteractionCreate, async (interaction) => {
+  if (!interaction.isButton()) return;
+  const buttonID = interaction.component.customId;
+
+  console.log(`User: ${interaction.user.id} \n Pressed: ${buttonID}`);
+
+  await interaction.message.react("🗿");
+  await interaction.reply({ content: "Vote Submitted", ephemeral: true });
 });
 
 // start up

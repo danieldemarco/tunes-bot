@@ -9,6 +9,9 @@ const {
   ChatInputCommandInteraction,
   userMention,
   bold,
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
 } = require("discord.js");
 
 const COMMANDS = {
@@ -41,12 +44,38 @@ const data = command
 const execute = async (interaction) => {
   // TODO: Handle voting open
   if (interaction.options.getSubcommand() === COMMANDS.OPEN) {
-    await interaction.reply({
-      content: `Voting has been ${bold("Started")} by ${userMention(
-        interaction.user.id
-      )}`,
+    // const collector = interaction.channel.createMessageComponentCollector({
+    //   time: 4000,
+    // });
+
+    // collector.on("collect", (interaction) => {
+    //   if (!interaction.isButton()) return;
+
+    //   console.log(`Got Message from collector ${interaction.customId}`);
+    // });
+
+    // collector.on("end", (interaction) => {
+    //   interaction.forEach((i) => console.log(i));
+    // });
+
+    await interaction.channel.send({
+      content: "Pick Your Winner",
+      components: [
+        new ActionRowBuilder()
+          .addComponents(
+            new ButtonBuilder()
+              .setCustomId("song-1")
+              .setStyle(ButtonStyle.Primary)
+              .setLabel("Song 1")
+          )
+          .addComponents(
+            new ButtonBuilder()
+              .setCustomId("song-2")
+              .setStyle(ButtonStyle.Primary)
+              .setLabel("Song 2")
+          ),
+      ],
     });
-    return;
   }
 
   if (interaction.options.getSubcommand() === COMMANDS.CLOSE) {
@@ -56,10 +85,7 @@ const execute = async (interaction) => {
         interaction.user.id
       )}`,
     });
-    return;
   }
-
-  interaction.reply({ content: "Something went wrong", ephemeral: true });
 };
 
 module.exports = {
