@@ -28,6 +28,9 @@
     "uuid": "9.0.0"
   },
   "devDependencies": {
-    "eslint": "8.29.0"
+    "eslint": "8.29.0",
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-prettier": "4.2.1"
   }
 }

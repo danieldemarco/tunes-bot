@@ -1,5 +1,6 @@
 {
-  "extends": "eslint:recommended",
+  "extends": ["eslint:recommended", "airbnb", "prettier"],
+  "plugins": ["prettier"],
   "env": {
     "node": true,
     "es6": true
@@ -8,6 +9,11 @@
     "ecmaVersion": 2021
   },
   "rules": {
-    "no-unused-vars": "off"
+    "prettier/prettier": ["error"],
+    "no-unused-vars": "off",
+    "no-restricted-syntax": "off",
+    "import/no-dynamic-require": "off",
+    "global-require": "off",
+    "no-console": "off"
   }
 }

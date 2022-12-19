@@ -7,12 +7,14 @@ const {
   SlashCommandSubcommandGroupBuilder,
   PermissionFlagsBits,
   ChatInputCommandInteraction,
-} = require('discord.js');
+  userMention,
+  bold,
+} = require("discord.js");
 
 const COMMANDS = {
-  VOTE: 'vote',
-  OPEN: 'open',
-  CLOSE: 'close',
+  VOTE: "vote",
+  OPEN: "open",
+  CLOSE: "close",
 };
 
 const command = new SlashCommandBuilder();
@@ -20,33 +22,47 @@ const subcommands = new SlashCommandSubcommandGroupBuilder();
 const open = new SlashCommandSubcommandBuilder();
 const close = new SlashCommandSubcommandBuilder();
 
-open.setName(COMMANDS.OPEN).setDescription('open voting for the current round')
+open.setName("open").setDescription("open voting for the current round");
 
-close
-  .setName(COMMANDS.CLOSE)
-  .setDescription('close voting for the current round');
+close.setName("close").setDescription("close voting for the current round");
 
 subcommands.addSubcommand(open).addSubcommand(close);
 
-command
-  .setName('vote')
-  .setDescription('control the voting phase')
-  .addSubcommandGroup(subcommands)
-  .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild); //Limit to server Admins
+const data = command
+  .setName("vote")
+  .setDescription("control the voting phase")
+  .addSubcommand(open)
+  .addSubcommand(close)
+  .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild); // Limit to server Admins
 
 /**
  * @param { ChatInputCommandInteraction } interaction
  */
 const execute = async (interaction) => {
+  // TODO: Handle voting open
   if (interaction.options.getSubcommand() === COMMANDS.OPEN) {
-    // TODO: Handle voting open
-    return 
+    await interaction.reply({
+      content: `Voting has been ${bold("Started")} by ${userMention(
+        interaction.user.id
+      )}`,
+    });
+    return;
   }
 
   if (interaction.options.getSubcommand() === COMMANDS.CLOSE) {
-    //TODO: Handle voting closed
-    return 
+    // TODO: Handle voting closed
+    await interaction.reply({
+      content: `Voting has been ${bold("Stopped")} by ${userMention(
+        interaction.user.id
+      )}`,
+    });
+    return;
   }
 
-  interaction.reply({ content: 'Something went wrong', ephemeral: true } 
+  interaction.reply({ content: "Something went wrong", ephemeral: true });
+};
+
+module.exports = {
+  data,
+  execute,
 };

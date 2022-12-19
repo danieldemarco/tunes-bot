@@ -4,27 +4,28 @@
 const {
   SlashCommandBuilder,
   ChatInputCommandInteraction,
-} = require('discord.js');
-const validateSpotifyURI = require('../spotify/index');
+} = require("discord.js");
+const validateSpotifyURI = require("../spotify/index");
+
 const data = new SlashCommandBuilder()
-  .setName('submit')
-  .setDescription('submit')
-  .addSubcommand((input) => {
-    return input
-      .setName('song')
-      .setDescription('submit a song for this round')
-      .addStringOption((option) => {
-        return option
-          .setName('uri')
-          .setDescription('Spotify URI of the song you would like to submit');
-      });
-  });
+  .setName("submit")
+  .setDescription("submit")
+  .addSubcommand((input) =>
+    input
+      .setName("song")
+      .setDescription("submit a song for this round")
+      .addStringOption((option) =>
+        option
+          .setName("uri")
+          .setDescription("Spotify URI of the song you would like to submit")
+      )
+  );
 
 /**
  * @param {ChatInputCommandInteraction} interaction
  */
 const execute = async (interaction) => {
-  if (interaction.options.getSubcommand() === 'song') {
+  if (interaction.options.getSubcommand() === "song") {
     // Check if the user has already submitted for this round
     const { username, id } = interaction.user;
     // TODO: Check this round in DB for make sure an entry doesn't exist
@@ -37,11 +38,11 @@ const execute = async (interaction) => {
      * return
      */
 
-    const song = interaction.options.getString('uri');
+    const song = interaction.options.getString("uri");
     // Verify something was submitted
     if (!song) {
       await interaction.reply({
-        content: ' You must provide a song url',
+        content: " You must provide a song url",
         ephemeral: true,
       });
       return;
@@ -50,13 +51,12 @@ const execute = async (interaction) => {
     // Validate uri is a real spotify song
     const [valid, err] = await validateSpotifyURI(song);
     if (err || !valid) {
-      await interaction.reply('Song URL invalid', { ephemeral: true });
+      await interaction.reply("Song URL invalid", { ephemeral: true });
       return;
     }
 
-    //TODO: Store song submission
+    // TODO: Store song submission
     await interaction.reply(`Submission Recieved!!`);
-    return;
   }
 };
 

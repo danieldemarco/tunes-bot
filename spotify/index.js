@@ -1,4 +1,4 @@
-const { default: axios } = require('axios');
+const { default: axios } = require("axios");
 
 /**
  * Test if a given uri is a valid spotify song
@@ -11,13 +11,13 @@ const isValidSpotifyURI = async (uri) => {
     const { data, status } = await axios.get(uri);
 
     if (!status === 200 || !data.includes('content="Spotify"')) {
-      console.log('Submission NOT a valid Spotify link');
-      return false, null;
+      console.log("Submission NOT a valid Spotify link");
+      return [false, null];
     }
 
-    return true, null;
+    return [true, null];
   } catch (err) {
-    return null, err;
+    return [null, err];
   }
 };
 

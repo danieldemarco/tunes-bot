@@ -1,7 +1,8 @@
+/* eslint-disable import/no-dynamic-require */
 // env config
-require('dotenv').config({ path: './.env' });
-const path = require('node:path');
-const fs = require('node:fs');
+require("dotenv").config({ path: "./.env" });
+const path = require("node:path");
+const fs = require("node:fs");
 const {
   Client,
   Collection,
@@ -9,7 +10,7 @@ const {
   GatewayIntentBits,
   REST,
   Routes,
-} = require('discord.js');
+} = require("discord.js");
 
 // environmental configuation
 const ENV = {
@@ -26,9 +27,11 @@ const client = new Client({
 });
 
 // Add slash command handlers to client
+// eslint-disable-next-line no-use-before-define
 addCommandsToClient(client);
 
 // Register slack commands to server using REST api
+// eslint-disable-next-line no-use-before-define
 registerCommands();
 
 console.log(client.commands);
@@ -50,7 +53,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
   } catch (error) {
     console.error(error);
     await interaction.reply({
-      content: 'There was an error while executing this command!',
+      content: "There was an error while executing this command!",
       ephemeral: true,
     });
   }
@@ -60,14 +63,14 @@ client.on(Events.InteractionCreate, async (interaction) => {
 client.login(ENV.botToken).catch((err) => console.error(err));
 
 // utils
-//TODO: These are gross and they need to be abstracted out
+// TODO: These are gross and they need to be abstracted out
 
 function addCommandsToClient(client) {
   client.commands = new Collection();
-  const commandsPath = path.join(__dirname, 'commands');
+  const commandsPath = path.join(__dirname, "commands");
   const commandFiles = fs
     .readdirSync(commandsPath)
-    .filter((file) => file.endsWith('.js'));
+    .filter((file) => file.endsWith(".js"));
 
   for (const file of commandFiles) {
     const filePath = path.join(commandsPath, file);
@@ -80,8 +83,8 @@ function registerCommands() {
   const commands = [];
 
   const commandFiles = fs
-    .readdirSync('./commands')
-    .filter((file) => file.endsWith('.js'));
+    .readdirSync("./commands")
+    .filter((file) => file.endsWith(".js"));
 
   for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
@@ -89,7 +92,7 @@ function registerCommands() {
     commands.push(command.data.toJSON());
   }
 
-  const rest = new REST({ version: '10' }).setToken(ENV.botToken);
+  const rest = new REST({ version: "10" }).setToken(ENV.botToken);
 
   (async () => {
     try {
@@ -108,7 +111,7 @@ function registerCommands() {
       );
     } catch (error) {
       // And of course, make sure you catch and log any errors!
-      console.error('FAILED TO REGISTER/RELOAD SLASH COMMANDS WITH GUILD');
+      console.error("FAILED TO REGISTER/RELOAD SLASH COMMANDS WITH GUILD");
       console.error(error);
     }
   })();

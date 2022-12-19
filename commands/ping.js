@@ -1,12 +1,17 @@
-const { SlashCommandBuilder } = require('discord.js');
+const {
+  SlashCommandBuilder,
+  ChatInputCommandInteraction,
+} = require("discord.js");
 
 const data = new SlashCommandBuilder()
-  .setName('ping')
-  .setDescription('Replies with Pong!');
+  .setName("ping")
+  .setDescription("Replies with Pong!");
 
+/**
+ * @param {ChatInputCommandInteraction} interaction
+ */
 const execute = async (interaction) => {
-  await interaction.reply('Pong!');
-
+  await interaction.reply("Pong!");
 };
 
 module.exports = {
