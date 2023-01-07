@@ -25,32 +25,30 @@ const User = sequelize.define('user', {
   discordid: DataTypes.TEXT,
   name: DataTypes.TEXT,
   emoji: DataTypes.TEXT,
+  // round1: DataTypes.ARRAY,
+  // round2: DataTypes.ARRAY,
+  // round3: DataTypes.ARRAY,
+  // round4: DataTypes.ARRAY,
+  // round5: DataTypes.ARRAY,
+  // round6: DataTypes.ARRAY,
+  // round7: DataTypes.ARRAY,
+  // round8: DataTypes.ARRAY,
 }, {
   tableName: "Players"
 });
 
 (async () => {
-  await sequelize.sync({force: true, alter: true});
+  await sequelize.sync({force: true, alter: true}); // REMOVE ALTER AND FORCE BEFORE PROD
   const curt = User.create({discordid: "CurtisBoBurtis#9510", name: "Curt", emoji: ":turtle:"});
   const katie = User.create({discordid: "keg7952#6477", name: "Katie", emoji: ":otter:"});
   const dan = User.create({discordid: "sudo#9658", name: "Dan", emoji: ":moyai:"});
-  const amanda = User.create({discordid: "ginganinja9695#1092", name: "Amanda", emoji: ":taco:"});
-  
+  const amanda = User.create({discordid: "ginganinja9695#1092",name: "Amanda", emoji: ":taco:"});
+
   const allPlayers = await User.findAll({
     attributes: ['name']
   });
-  console.log("All users: ", JSON.stringify(allPlayers, null, 2));
-  console.log(allPlayers[0].name);
-})();
 
-// // example user create
-// (async function () {
-//   await sequelize.sync({ alter: true, force: true }); //! REMOVE ALTER AND FORCE BEFORE PROD
-//   let response = await User.create({discordid: "CurtisBoBurtis", name: "Curt", emoji: ":turtle:"}).catch(console.error);
-//   response = await User.create({discordid: "poopy"});
-//   console.log('response:', response);
-//   console.log(curt.toJSON());
-// })(); 
+})();
 
 module.exports = {
   conn: sequelize,

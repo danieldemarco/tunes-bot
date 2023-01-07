@@ -42,7 +42,7 @@ const execute = async (interaction) => {
     // Verify something was submitted
     if (!song) {
       await interaction.reply({
-        content: " You must provide a song url",
+        content: " You must provide submissiona song url",
         ephemeral: true,
       });
       return;
