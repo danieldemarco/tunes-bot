@@ -22,7 +22,16 @@ sequelize
   .catch(console.error);
 
 
-await User.sync()
+// Initialize Tables
+await User.sync();
+await Round.sync();
+await Matchup.sync();
+await Submission.sync();
+await Vote.sync();
+// TODO: finish defining models and initializing tables
+
+
+
 
 module.exports = {
   conn: sequelize,
